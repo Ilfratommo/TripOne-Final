@@ -14,7 +14,7 @@ struct EditSubTextView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Edit Subtext", text: $subText)
+                TextField("Write here your destination", text: $subText)
                     .textFieldStyle(.roundedBorder)
                     .padding()
 

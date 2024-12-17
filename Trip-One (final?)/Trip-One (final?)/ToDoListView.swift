@@ -12,13 +12,15 @@ struct ToDoListView: View {
     @State private var showTaskList = false
     @State private var subText: String = "Name here the place"
     @State private var isEditingSubText = false
+    
+    @ObservedObject var achievementsManager: AchievementsManager
 
     var body: some View {
         NavigationStack {
             VStack(alignment: .center, spacing: 40) {
                 // Enlarged and centered subtext
                 Text(subText)
-                    .font(.title) // Larger font
+                    .font(.title)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .padding()
@@ -30,9 +32,9 @@ struct ToDoListView: View {
                 NavigationLink(destination: TaskListView(toDoItems: $toDoItems)) {
                     ActivityRingView(
                         progress: calculateProgress(),
-                        ringColor: .yellow, // Neon/Fluo yellow
-                        ringThickness: 25,   // Thicker ring
-                        size: 250,           // Larger size
+                        ringColor: .yellow,
+                        ringThickness: 25,
+                        size: 250,
                         completedTasks: toDoItems.filter { $0.isCompleted }.count,
                         totalTasks: toDoItems.count
                     )
@@ -41,19 +43,27 @@ struct ToDoListView: View {
                 .padding()
 
                 // Achievements Section
-                NavigationLink(destination: AchievementsView()) {
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 300, height: 200)
-                        .overlay(
-                            Text("Achievements")
-                                .font(.title2)
-                                .foregroundColor(.blue)
-                                .bold()
-                        )
+                VStack {
+                    Text("Achievements")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(achievementsManager.completedBadges, id: \.self) { badgeName in
+                                Image(badgeName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                                    .shadow(radius: 5)
+                            }
+                        }
+                    }
+                    .frame(height: 120)
                 }
-                .buttonStyle(PlainButtonStyle())
-
+                .padding()
+                
                 Spacer()
             }
             .navigationTitle("Have a nice Trip")
@@ -66,7 +76,7 @@ struct ToDoListView: View {
     private func calculateProgress() -> Double {
         let completed = toDoItems.filter { $0.isCompleted }.count
         let progress = toDoItems.isEmpty ? 0.0 : Double(completed) / Double(toDoItems.count)
-        print("ToDoListView: Progress calculated as \(progress)")
         return progress
     }
 }
+
