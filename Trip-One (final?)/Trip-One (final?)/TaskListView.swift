@@ -26,30 +26,52 @@ struct TaskListView: View {
             .padding(.horizontal)
 
             List {
-                ForEach($toDoItems) { $item in
+                ForEach(toDoItems) { item in
                     HStack {
                         Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
                             .foregroundColor(item.isCompleted ? .green : .gray)
-                            .onTapGesture { item.isCompleted.toggle() }
+                            .onTapGesture { toggleCompletion(for: item) }
 
                         Text(item.title)
                             .strikethrough(item.isCompleted, color: .gray)
                             .foregroundColor(item.isCompleted ? .gray : .primary)
+
+                        Spacer()
+
+                        Button(action: { deleteTask(item) }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
                     }
+                    .padding(.vertical, 5)
                 }
-                .onDelete(perform: deleteTask)
             }
         }
-        .navigationTitle("Places")
+        .navigationTitle("My itinerary")
     }
 
     private func addTask() {
-        guard !newTaskTitle.isEmpty else { return }
-        toDoItems.append(ToDoItem(title: newTaskTitle, isCompleted: false))
+        guard !newTaskTitle.isEmpty else {
+            print("TaskListView: Attempted to add an empty task.")
+            return
+        }
+        let newTask = ToDoItem(title: newTaskTitle)
+        toDoItems.append(newTask)
+        print("TaskListView: Added new task with title \(newTask.title)")
         newTaskTitle = ""
     }
 
-    private func deleteTask(at offsets: IndexSet) {
-        toDoItems.remove(atOffsets: offsets)
+    private func toggleCompletion(for item: ToDoItem) {
+        if let index = toDoItems.firstIndex(where: { $0.id == item.id }) {
+            toDoItems[index].isCompleted.toggle()
+            print("TaskListView: Task \(toDoItems[index].title) marked as \(toDoItems[index].isCompleted ? "completed" : "incomplete")")
+        }
+    }
+
+    private func deleteTask(_ item: ToDoItem) {
+        if let index = toDoItems.firstIndex(where: { $0.id == item.id }) {
+            print("TaskListView: Deleted task with title \(toDoItems[index].title)")
+            toDoItems.remove(at: index)
+        }
     }
 }

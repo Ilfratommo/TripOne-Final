@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct EditSubTextView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    @Binding var subText: String
+    @Environment(\.dismiss) private var dismiss
 
-#Preview {
-    EditSubTextView()
+    var body: some View {
+        NavigationStack {
+            VStack {
+                TextField("Edit Subtext", text: $subText)
+                    .textFieldStyle(.roundedBorder)
+                    .padding()
+
+                Spacer()
+            }
+            .navigationTitle("Where are you going?")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
 }

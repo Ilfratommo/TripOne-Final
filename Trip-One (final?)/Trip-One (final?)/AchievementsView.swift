@@ -9,10 +9,21 @@ import SwiftUI
 
 struct AchievementsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Achievements here")
+                .font(.largeTitle)
+                .bold()
+                .padding()
+
+            Spacer()
+
+            Text("Your achievements will appear here!")
+                .font(.title2)
+                .foregroundColor(.gray)
+
+            Spacer()
+        }
+        .navigationTitle("Achievements")
     }
 }
 
-#Preview {
-    AchievementsView()
-}

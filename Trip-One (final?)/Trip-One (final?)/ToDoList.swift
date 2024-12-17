@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct ToDoItem: Identifiable {
-    let id = UUID()
-    let title: String
-    var isCompleted: Bool
+class ToDoItem: Identifiable, ObservableObject {
+    var id = UUID()
+    @Published var title: String
+    @Published var isCompleted: Bool
+
+    init(title: String, isCompleted: Bool = false) {
+        self.title = title
+        self.isCompleted = isCompleted
+    }
 }

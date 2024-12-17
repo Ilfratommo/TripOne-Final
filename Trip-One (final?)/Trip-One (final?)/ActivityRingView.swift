@@ -15,6 +15,8 @@ struct ActivityRingView: View {
     var completedTasks: Int
     var totalTasks: Int
 
+    @State private var animateProgress = false
+
     var body: some View {
         ZStack {
             Circle()
@@ -22,11 +24,15 @@ struct ActivityRingView: View {
                 .frame(width: size, height: size)
 
             Circle()
-                .trim(from: 0.0, to: progress)
+                .trim(from: 0.0, to: animateProgress ? progress : 0.0)
                 .stroke(ringColor, style: StrokeStyle(lineWidth: ringThickness, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .frame(width: size, height: size)
-                .animation(.easeInOut, value: progress)
+                .animation(.easeInOut(duration: 1.5), value: animateProgress)
+                .onAppear {
+                    print("ActivityRingView: Animation started for progress: \(progress)")
+                    animateProgress = true
+                }
 
             VStack {
                 Text("\(Int(progress * 100))%")
@@ -40,3 +46,4 @@ struct ActivityRingView: View {
         }
     }
 }
+
