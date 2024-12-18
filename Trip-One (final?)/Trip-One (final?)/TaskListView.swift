@@ -28,25 +28,31 @@ struct TaskListView: View {
             List {
                 ForEach(toDoItems) { item in
                     HStack {
-                        Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
-                            .foregroundColor(item.isCompleted ? .green : .gray)
-                            .onTapGesture { toggleCompletion(for: item) }
+                        Button {
+                            toggleCompletion(for: item)
+                        } label: {
+                            Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                .foregroundColor(item.isCompleted ? .green : .gray)
+                        }
 
                         Text(item.title)
                             .strikethrough(item.isCompleted, color: .gray)
                             .foregroundColor(item.isCompleted ? .gray : .primary)
 
                         Spacer()
-
-                 //       Button(action: { deleteTask(item) }) {
-                //            Image(systemName: "trash")
-                //                .foregroundColor(.red)
-                  //      }
-                        .frame(width: 10) // Adjust as needed
+                        
+                        Button {
+                            deleteTask(item)
+                        } label: {
+                            Image(systemName: "trash")
+                              .foregroundColor(.red)
+                        }
+                        .frame(width: 10)
                     }
                     .padding(.vertical, 5)
                 }
             }
+            .buttonStyle(BorderlessButtonStyle())
         }
         .navigationTitle("My itinerary")
     }
