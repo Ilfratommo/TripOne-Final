@@ -82,3 +82,55 @@ struct TaskListView: View {
         }
     }
 }
+
+/*import SwiftUI
+
+struct TaskListView: View {
+    @StateObject private var viewModel = TaskListViewModel()
+
+    var body: some View {
+        VStack {
+            HStack {
+                TextField("New task", text: $viewModel.newTaskTitle)
+                    .textFieldStyle(.roundedBorder)
+
+                Button(action: viewModel.addTask) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+                }
+            }
+            .padding(.horizontal)
+
+            List {
+                ForEach(viewModel.toDoItems) { item in
+                    HStack {
+                        Button {
+                            viewModel.toggleCompletion(for: item)
+                        } label: {
+                            Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                .foregroundColor(item.isCompleted ? .green : .gray)
+                        }
+
+                        Text(item.title)
+                            .strikethrough(item.isCompleted, color: .gray)
+                            .foregroundColor(item.isCompleted ? .gray : .primary)
+
+                        Spacer()
+
+                        Button {
+                            viewModel.deleteTask(item)
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                        .frame(width: 10)
+                    }
+                    .padding(.vertical, 5)
+                }
+            }
+            .buttonStyle(BorderlessButtonStyle())
+        }
+        .navigationTitle("My itinerary")
+    }
+ }*/
