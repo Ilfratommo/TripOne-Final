@@ -44,9 +44,9 @@ struct ToDoListView: View {
 
                 // Achievements Section
                 VStack {
-                    Text("Achievements")
+                    Text("Your achievements")
                         .font(.headline)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.black)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
@@ -56,7 +56,7 @@ struct ToDoListView: View {
                                     .scaledToFit()
                                     .frame(width: 100, height: 100)
                                     .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    .shadow(radius: 5)
+                                   // .shadow(radius: 5)
                             }
                         }
                     }

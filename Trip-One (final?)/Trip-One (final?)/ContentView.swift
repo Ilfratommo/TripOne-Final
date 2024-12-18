@@ -14,7 +14,7 @@ struct ContentView: View {
         TabView {
             ToDoListView(achievementsManager: achievementsManager)
                 .tabItem {
-                    Label("To-Do List", systemImage: "list.bullet")
+                    Label("Itinerary", systemImage: "list.bullet")
                 }
             
             AchievementsView(achievementsManager: achievementsManager)

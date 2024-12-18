@@ -4,7 +4,6 @@
 //
 //  Created by Tommaso D'Auria on 16/12/24.
 //
-
 import Foundation
 
 class ToDoItem: Identifiable, ObservableObject {

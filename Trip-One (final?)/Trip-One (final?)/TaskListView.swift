@@ -38,10 +38,11 @@ struct TaskListView: View {
 
                         Spacer()
 
-                        Button(action: { deleteTask(item) }) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
+                 //       Button(action: { deleteTask(item) }) {
+                //            Image(systemName: "trash")
+                //                .foregroundColor(.red)
+                  //      }
+                        .frame(width: 10) // Adjust as needed
                     }
                     .padding(.vertical, 5)
                 }
